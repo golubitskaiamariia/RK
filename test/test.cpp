@@ -7,20 +7,23 @@ TEST(ConcreteMemento_test, StateTest) {
 
 TEST(TextEditor_test, AppendTextTest){
   TextEditor test_editor;
-  test = test_editor.AppendText("test")
-  EXPECT_EQ(test, "test");
+  test_editor.AppendText("test");
+  Memento* p = test_editor.Save();
+  EXPECT_EQ(p->state(), "test");
 }
 
 TEST(Logger_test, BackupTest){
-  Logger test_logger(test_editor);
+  TextEditor test_editor;
+  TextEditor* p = &test_editor;
+  Logger test_logger(p);
+  test_editor.AppendText("testing1");
   test_logger.Backup();
-  test.editor.AppentText("testing");
-  test_ligger.Undo();
-  EXPECT_EQ(test_editor.Save()->state(), "test");
+  test_editor.AppendText("testing2");
+  test_logger.Undo();
+  EXPECT_EQ(test_editor.Save()->state(), "testing1");
 }
 
 int main(int argc, char** argv) {
- ::testing::FLAGS_gmock_verbose = "error";
  ::testing::InitGoogleTest(&argc, argv);
  return RUN_ALL_TESTS();
 }
