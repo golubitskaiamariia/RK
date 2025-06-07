@@ -11,3 +11,10 @@ add_executable(main source/main.cpp)
 target_link_libraries(main classes)
 add_subdirectory(test)
 add_subdirectory(third-party/gtest)
+
+
+set(CPACK_PACKAGE_NAME "RK")
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Plisya")
+set(CPACK_GENERATOR DEB)
+include(CPack)
